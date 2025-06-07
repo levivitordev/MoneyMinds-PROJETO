@@ -1,6 +1,4 @@
 # MoneyMinds: Educação Financeira para Jovens 🧠💰
-![icon](https://github.com/user-attachments/assets/a0f5b057-7ec5-4822-8c97-9bf7d5648bb7)
-
 ---
 
 ## 📙 Sobre o Projeto
