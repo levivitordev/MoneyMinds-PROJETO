@@ -46,6 +46,7 @@ O projeto é composto por três arquivos principais:
 * `index.html`: Contém toda a estrutura HTML da aplicação. Cada "tela" (login, home, metas, etc.) é uma `div` com a classe `.screen`. A navegação consiste em mostrar ou esconder essas `divs`.
 * `style.css`: Inclui estilos personalizados que complementam o TailwindCSS, como animações, a barra de progresso circular e o estilo dos modais.
 * `script.js`: O cérebro da aplicação. Contém todo o código JavaScript para manipulação do DOM, navegação entre telas, comunicação com o Supabase e lógica de negócios.
+* * `config.js`: Estabele a Conexão do SupaBase com o Vercel.
   
 ---
 
