@@ -37,6 +37,9 @@ A plataforma utiliza o **Supabase** como backend, gerenciando a autenticação d
         * **Database**: Banco de dados PostgreSQL para armazenar os dados.
         * **Storage**: Armazena os avatares dos usuários.
 
+* **Hospedagem (Vercel)**
+   * [Vercel](https://vercel.com/)
+
 ---
 
 ## 📂 Estrutura do Projeto
