@@ -1,10 +1,3 @@
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = process.env.VITE_SUPABASE_KEY;
-
-if (!SUPABASE_URL || !SUPABASE_KEY) {
-  console.error("As variáveis de ambiente do Supabase não foram configuradas!");
-  alert("Erro de configuração no servidor. Contacte o administrador.");
-}
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUserType = "jovem";
