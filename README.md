@@ -3,7 +3,7 @@
 
 ## 📙 Sobre o Projeto
 
-O **MoneyMinds** foi criado com o objetivo de preencher a lacuna na educação financeira para o público jovem. A aplicação funciona como uma Single Page Application (SPA), onde todas as interações ocorrem dinamicamente em uma única página, proporcionando uma experiência de usuário fluida e rápida, semelhante a um aplicativo móvel.
+O **MoneyMinds** foi criado com o objetivo de preencher a lacuna na educação(ODS-4) financeira para o público jovem.É uma aplicação web interativa que visa simplificar o controle financeiro pessoal. Através de ferramentas intuitivas e recursos educativos, ajudamos os utilizadores a entenderem melhor os seus hábitos de consumo, a definirem metas financeiras e a tomarem decisões mais informadas sobre o seu dinheiro.
 
 A plataforma utiliza o **Supabase** como backend, gerenciando a autenticação de usuários (incluindo login com Google), o armazenamento de dados em banco de dados (perfis, transações, metas) e o upload de arquivos (fotos de perfil).
 
