@@ -135,63 +135,59 @@ window.onload = () => {
     const user = session?.user;
 
     if (event === "SIGNED_IN") {
-      console.log("Usuário logado:", user);
+        console.log("Usuário logado:", user);
+        if (!user) return;
 
-      if (!user) return;
+        const { data: perfil, error: perfilError } = await supabase
+            .from("perfis")
+            .select("id, nome, tipo_usuario")
+            .eq("id", user.id)
+            .single();
 
-      const { data: perfil, error: perfilError } = await supabase
-        .from("perfis")
-        .select("id, nome, tipo_usuario")
-        .eq("id", user.id)
-        .single();
+        if (perfil) {
+            // Se o perfil já existe (criado pelo cadastro ou login anterior), usa os dados dele.
+            console.log("Perfil encontrado, bem-vindo de volta!");
+            currentUserName = perfil.nome;
+            currentUserType = perfil.tipo_usuario;
+            navigateTo(currentUserType === "jovem" ? "homeJovemScreen" : "homeProfessorScreen");
+        
+        } else if (perfilError && perfilError.code === 'PGRST116') {
+            // Perfil não encontrado. VAMOS VERIFICAR SE É LOGIN SOCIAL.
+            const isSocialLogin = user.app_metadata.provider && user.app_metadata.provider !== 'email';
 
-      if (perfilError && perfilError.code === "PGRST116") {
-        console.log(
-          "Perfil não encontrado, criando um novo para o usuário de login social."
-        );
+            if (isSocialLogin) {
+                // Se for um login social (Google, etc.), criamos um perfil padrão.
+                console.log("Perfil não encontrado para login social, criando um novo.");
+                const novoNome = user.user_metadata?.full_name || user.email.split("@")[0];
+                const { error: insertError } = await supabase.from("perfis").insert([
+                    { id: user.id, nome: novoNome, tipo_usuario: "jovem" }
+                ]);
 
-        const novoNome =
-          user.user_metadata?.full_name || user.email.split("@")[0];
-
-        const { error: insertError } = await supabase.from("perfis").insert([
-          {
-            id: user.id,
-            nome: novoNome,
-            tipo_usuario: "jovem",
-          },
-        ]);
-
-        if (insertError) {
-          console.error(
-            "Erro ao criar perfil para novo usuário:",
-            insertError.message
-          );
-          alert("Ocorreu um erro ao configurar sua conta.");
-          await supabase.auth.signOut();
-          return;
+                if (insertError) {
+                    console.error("Erro ao criar perfil para novo usuário social:", insertError.message);
+                    alert("Ocorreu um erro ao configurar sua conta.");
+                    await supabase.auth.signOut();
+                } else {
+                    currentUserName = novoNome;
+                    currentUserType = "jovem";
+                    navigateTo("homeJovemScreen");
+                }
+            } else {
+                // Se for um login via email e o perfil ainda não existe, não fazemos nada.
+                // A função 'cadastrar' é a responsável. Apenas aguardamos.
+                console.log("Aguardando criação do perfil pela função de cadastro.");
+            }
+        
+        } else if (perfilError) {
+            // Outro tipo de erro ocorreu ao buscar o perfil.
+            console.error("Erro ao buscar perfil:", perfilError.message);
+            alert("Ocorreu um erro ao carregar seus dados.");
+            await supabase.auth.signOut();
         }
 
-        currentUserName = novoNome;
-        currentUserType = "jovem";
-        navigateTo("homeJovemScreen");
-      } else if (perfil) {
-        console.log("Perfil encontrado, bem-vindo de volta!");
-        currentUserName = perfil.nome;
-        currentUserType = perfil.tipo_usuario;
-        navigateTo(
-          currentUserType === "jovem"
-            ? "homeJovemScreen"
-            : "homeProfessorScreen"
-        );
-      } else if (perfilError) {
-        console.error("Erro ao buscar perfil:", perfilError.message);
-        alert("Ocorreu um erro ao carregar seus dados.");
-        await supabase.auth.signOut();
-      }
     } else if (event === "SIGNED_OUT") {
-      console.log("Usuário deslogado.");
-
-      navigateTo("loginScreen");
+        console.log("Usuário deslogado.");
+        navigateTo("loginScreen");
     }
   });
   setupAvatarUploadListener();
