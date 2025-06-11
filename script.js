@@ -210,6 +210,12 @@ async function login() {
   const email = document.getElementById("loginEmail").value;
   const senha = document.getElementById("loginPassword").value;
 
+  const captchaToken = grecaptcha.getResponse();
+  if (!captchaToken) {
+    alert("Por favor, confirme que você não é um robô.");
+    return;
+  }
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: senha,
