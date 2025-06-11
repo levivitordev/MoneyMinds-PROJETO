@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
 
@@ -31,6 +33,7 @@
             </div>
             <input type="email" id="loginEmail" placeholder="Seu e-mail" class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" value="jovem@exemplo.com">
             <input type="password" id="loginPassword" placeholder="Sua senha" class="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" value="123456">
+            <div class="g-recaptcha mb-4" data-sitekey="6LdaFl0rAAAAACBnvbk87Qo8mG-gggUJ-SEKOhJm"></div>
             <button onclick="login()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-3 rounded-lg mb-4 transition duration-150 ease-in-out">Entrar</button>
             <button onclick="navigateTo('cadastroScreen')" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold p-3 rounded-lg mb-4 transition duration-150 ease-in-out">Cadastre-se</button>
             
